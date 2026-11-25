@@ -11,6 +11,8 @@ Needs only the Apple Command Line Tools (macOS 14 or later, Apple silicon).
 open /Applications/Snap5.app
 ```
 
+To make the download for other people (`../dist/Snap5-Mac.zip`): `./build.sh package`
+
 ## Permissions (System Settings → Privacy & Security)
 
 | Permission | Needed for |

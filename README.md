@@ -22,7 +22,15 @@ Screenshots, markup and screen recording for Google Chrome (built for Mac, no ac
 
 ## Mac app (screenshots in any app)
 
-A menu bar app that takes `5 5` / `5 5 5` screenshots outside Chrome, with the same markup tools. It is not offered as a ready-made download: build it from source on your own Mac (Apple silicon, macOS 14 or later). See [mac/README.md](mac/README.md).
+**[⬇️ Download Snap5 for Mac (free)](https://github.com/leoarafat/snap5/releases/download/mac-v1.0.0/Snap5-Mac.zip)** · Apple silicon, macOS 14 or later (tried on macOS 27 only)
+
+A menu bar app that takes `5 5` / `5 5 5` screenshots outside Chrome, with the same markup tools.
+
+1. Unzip and drag **Snap5** to **Applications**.
+2. Open it. macOS blocks it because Apple has not checked (notarized) it. Click **Done**, then **System Settings → Privacy & Security → Open Anyway**. Only do this if you trust this download.
+3. Allow **Screen & System Audio Recording**, **Input Monitoring** and **Accessibility**, then quit and reopen Snap5.
+
+Full steps: Part 2 of the [user guide](docs/Snap5-Guide.pdf). To build it yourself: [mac/README.md](mac/README.md).
 
 ## Install the Chrome extension
 

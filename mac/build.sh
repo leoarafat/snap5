@@ -2,6 +2,7 @@
 # Builds Snap5.app with the Apple Command Line Tools. No downloads, no third-party code.
 #   ./build.sh            build into mac/build/Snap5.app
 #   ./build.sh install    build, then copy to /Applications
+#   ./build.sh package    build, then make ../dist/Snap5-Mac.zip for other people
 set -eu
 cd "$(dirname "$0")"
 ROOT=..
@@ -42,6 +43,9 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 </dict></plist>
 PLIST
 
+# Leave no debug symbols (they can contain folder paths from the build machine).
+strip -S "$APP/Contents/MacOS/Snap5"
+
 # Local ("ad-hoc") signature: enough to run on this Mac.
 codesign --force --sign - "$APP"
 echo "Built $APP"
@@ -50,4 +54,14 @@ if [ "${1:-}" = "install" ]; then
   if pgrep -xq Snap5; then echo "Quit Snap5 first (menu bar → Quit Snap5), then run this again."; exit 1; fi
   ditto "$APP" /Applications/Snap5.app
   echo "Installed to /Applications/Snap5.app"
+fi
+
+if [ "${1:-}" = "package" ]; then
+  STAGE=$(mktemp -d)
+  mkdir -p "$STAGE/Snap5-Mac" "$ROOT/dist"
+  ditto "$APP" "$STAGE/Snap5-Mac/Snap5.app"
+  cp "$ROOT/docs/Snap5-Guide.pdf" "$STAGE/Snap5-Mac/Snap5-Guide.pdf"
+  # ditto keeps the app signature and file permissions intact.
+  ditto -c -k --norsrc --noextattr --keepParent "$STAGE/Snap5-Mac" "$ROOT/dist/Snap5-Mac.zip"
+  echo "Packaged $ROOT/dist/Snap5-Mac.zip"
 fi

@@ -36,13 +36,14 @@
 <body>
 
 <div class="cover"><img src="../icons/128.png" alt=""><h1>Snap5</h1></div>
-<p class="lead">Screenshots, markup and screen recording for Google Chrome. User guide for MacBook, version 1.1.0.</p>
+<p class="lead">Screenshots, markup and screen recording on your MacBook. Chrome extension 1.1.0 and Mac app 1.0.0.</p>
 
 <div class="keys">
   <div class="key"><b>5 &nbsp;5</b>Press 5 twice quickly: select an area, mark it up, then copy or download.</div>
   <div class="key"><b>5 &nbsp;5 &nbsp;5</b>Press 5 three times quickly: the whole page is captured and copied.</div>
 </div>
 <p><b>Screen recording:</b> press <kbd>⌥⇧R</kbd> or click the Snap5 icon → <b>Record screen</b> (section 7).</p>
+<div class="note"><b>Two parts.</b> The <b>Chrome extension</b> (sections 1 to 10) works on web pages and records the screen. The <b>Mac app</b> (Part 2, at the end) takes screenshots in any other app, such as Claude, WhatsApp or Finder. Install either one or both.</div>
 
 <h2>1. Install on your Mac (one time)</h2>
 <ol>
@@ -207,7 +208,7 @@
   <tr><td>Recording will not start</td><td>Allow Screen &amp; System Audio Recording for Google Chrome in System Settings, then restart Chrome.</td></tr>
   <tr><td>No sound in the video</td><td>Check that the microphone is on and its level bar moves. For tab sound, turn on <b>Share audio</b> in Chrome's picker.</td></tr>
   <tr><td>The video stutters</td><td>Choose 1080p or 720p and 30 fps, and close heavy apps.</td></tr>
-  <tr><td>It works only inside Chrome</td><td>The <kbd>5</kbd> keys work only on Chrome pages. This is a Chrome extension; a Mac app would be needed for a system-wide key. The recorder can still record other apps.</td></tr>
+  <tr><td>It works only inside Chrome</td><td>The extension's <kbd>5</kbd> keys work only on Chrome pages. For other apps, install the Snap5 Mac app (Part 2).</td></tr>
 </table>
 
 <h2>10. Update, remove and privacy</h2>
@@ -216,6 +217,75 @@
   <li><b>Remove:</b> click <b>Remove</b> on the same page. This also deletes the history.</li>
   <li><b>Privacy:</b> Snap5 has no account, no analytics and no server. Screenshots and videos are not uploaded anywhere. History and recordings are stored inside Chrome on your own computer. The camera and microphone are used only by the recorder. Chrome asks for access to all websites because Snap5 must be able to capture whichever page you are on.</li>
   <li><b>Not included:</b> text recognition (OCR), automatic captions, GIF export and online share links.</li>
+</ul>
+<h2 class="page">Part 2: Snap5 for Mac</h2>
+<p>A small menu bar app that takes Snap5 screenshots in <b>any app</b>. It does not need the Chrome extension.</p>
+<p><b>You need:</b> a Mac with an Apple chip (M1 or newer) and macOS 14 or newer. It has been tried on macOS 27 only. Intel Macs are not supported.</p>
+
+<h3>M1. Download and install</h3>
+<ol>
+  <li>Download <a href="https://github.com/leoarafat/snap5/releases/download/mac-v1.0.0/Snap5-Mac.zip">Snap5-Mac.zip</a> from <code>github.com/leoarafat/snap5</code> and double-click it to unzip.</li>
+  <li>Drag <b>Snap5</b> into your <b>Applications</b> folder.</li>
+</ol>
+
+<h3>M2. Open it the first time</h3>
+<p>Snap5 is free and has <b>not been checked (notarized) by Apple</b>, so macOS blocks it the first time.</p>
+<ol>
+  <li>Double-click <b>Snap5</b> in Applications. A warning says Apple could not verify it. Click <b>Done</b>. Do not click "Move to Trash".</li>
+  <li>Open <b>System Settings → Privacy &amp; Security</b> and scroll down to <b>Security</b>.</li>
+  <li>Next to the message about Snap5, click <b>Open Anyway</b>, enter your Mac password, then confirm. The button stays for about an hour; if it is gone, repeat step 1.</li>
+</ol>
+<div class="note">Apple warns that opening unchecked apps is a common way Macs get harmful software. Do this only if you downloaded Snap5 from the link above and trust it. The source code is public, so anyone can read it or build the app themselves.</div>
+
+<h3>M3. Allow three permissions</h3>
+<p>Click <b>Continue</b> in the welcome box. In <b>System Settings → Privacy &amp; Security</b> turn on <b>Snap5</b> in each list. If it is not listed, press <b>+</b> and choose it from Applications.</p>
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr><td>Screen &amp; System Audio Recording</td><td>To take screenshots. The app does not record sound.</td></tr>
+  <tr><td>Input Monitoring</td><td>To notice <kbd>5</kbd> <kbd>5</kbd> in other apps. This lets an app see key presses. Snap5 only checks whether a key is 5 and remembers when another key was last pressed. It does not store or send what you type.</td></tr>
+  <tr><td>Accessibility</td><td>To ignore <kbd>5</kbd> while the cursor is in a text box.</td></tr>
+</table>
+<p>Then quit Snap5 (menu bar icon <b>5</b> → <b>Quit Snap5</b>) and open it again. The menu shows <b>✓ All permissions allowed</b> when ready. Only want the <kbd>⌃⌥</kbd> shortcuts? Screen Recording is enough.</p>
+
+<h3 class="page">M4. Take screenshots</h3>
+<table>
+  <tr><th>Press</th><th>Result</th></tr>
+  <tr><td><kbd>5</kbd> <kbd>5</kbd> or <kbd>⌃ Control</kbd> + <kbd>⌥ Option</kbd> + <kbd>S</kbd></td><td>Select an area, or click once to take a whole window</td></tr>
+  <tr><td><kbd>5</kbd> <kbd>5</kbd> <kbd>5</kbd> or <kbd>⌃⌥F</kbd></td><td>Copy the whole screen under the mouse</td></tr>
+</table>
+<p>On a MacBook keyboard the keys to the left of the space bar are <b>fn, control, option, command</b>.</p>
+<figure><img src="images/10-mac-app.png" alt="Selecting a window in the Mac app" style="max-height:62mm"><figcaption>A window selected and marked up (sample picture).</figcaption></figure>
+<ul>
+  <li>Mark up with the same tools and keys as section 3.</li>
+  <li><kbd>Return</kbd> copies (then paste with <kbd>⌘V</kbd>), <kbd>⌘S</kbd> saves to Downloads, <kbd>⌘P</kbd> pins the picture on top of your apps. Drag a pin to move it, double-click to close it. <kbd>Esc</kbd> cancels.</li>
+  <li>In a text box, <kbd>5</kbd> <kbd>5</kbd> is ignored. Click outside the box first, or use <kbd>⌃⌥S</kbd>. Some apps do not tell macOS where the cursor is; if typing "55" takes a screenshot there, turn the 5 key off in the menu.</li>
+</ul>
+
+<h3>M5. Menu options</h3>
+<table>
+  <tr><th>Option</th><th>What it does</th></tr>
+  <tr><td>Capture area after 3 seconds</td><td>Time to open a menu first</td></tr>
+  <tr><td>Use the 5 key</td><td>Turns <kbd>5</kbd> <kbd>5</kbd> and <kbd>5</kbd> <kbd>5</kbd> <kbd>5</kbd> on or off</td></tr>
+  <tr><td>In Chrome, let the extension handle 5</td><td>On by default, so you do not get two screenshots. <b>No Chrome extension? Turn this off</b>, or 5 does nothing in Chrome.</td></tr>
+  <tr><td>Keep a copy in Pictures/Snap5</td><td>On by default. Turn it off if you do not want copies saved.</td></tr>
+  <tr><td>Start Snap5 at login</td><td>Opens Snap5 when the Mac starts</td></tr>
+</table>
+<p><b>Not in the Mac app:</b> scrolling capture of a long page or chat, screen recording, the full editor and a history page. Use the Chrome extension for those.</p>
+
+<h3 class="page">M6. If something does not work</h3>
+<table>
+  <tr><th>Problem</th><th>Solution</th></tr>
+  <tr><td><kbd>5</kbd> <kbd>5</kbd> does nothing</td><td>Allow Input Monitoring, then quit and reopen Snap5. Click outside any text box, wait a second, press twice quickly. Try <kbd>⌃⌥S</kbd>.</td></tr>
+  <tr><td>No screenshot, or only the wallpaper</td><td>Allow Screen &amp; System Audio Recording, then quit and reopen Snap5.</td></tr>
+  <tr><td>A permission is on but still not working</td><td>Remove Snap5 from that list with <b>−</b>, add it again with <b>+</b>, then reopen Snap5.</td></tr>
+  <tr><td>Clicks or typing behave strangely</td><td>Press <kbd>Esc</kbd>. If that does not help, quit Snap5 from the menu bar or with Activity Monitor.</td></tr>
+</table>
+
+<h3>M7. Update, remove and privacy</h3>
+<ul>
+  <li><b>Update (by hand):</b> quit Snap5, replace it in Applications with the new one, and use <b>Open Anyway</b> again. macOS may ask for the permissions again; if they look on but do not work, remove Snap5 from each list and add it again.</li>
+  <li><b>Remove:</b> turn off "Start Snap5 at login", quit Snap5, move it to the Trash and remove it from the three permission lists. Pictures in <code>Pictures/Snap5</code> stay until you delete them.</li>
+  <li><b>Privacy:</b> no account, no analytics, no server. The app contains no code that connects to the internet.</li>
 </ul>
 </body>
 </html>
