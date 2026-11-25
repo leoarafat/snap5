@@ -66,7 +66,7 @@ const toPage = (tabId, message) => chrome.tabs.sendMessage(tabId, message, { fra
 const flashBadge = async (text, color = '#e11d48', ms = 2500) => {
   await chrome.action.setBadgeBackgroundColor({ color });
   await chrome.action.setBadgeText({ text });
-  if (ms) setTimeout(() => chrome.action.setBadgeText({ text: '' }), ms);
+  if (ms) setTimeout(async () => setRecordingBadge(await getRecording()), ms);
 };
 
 const openPage = async (path, near) => {
@@ -187,7 +187,7 @@ const captureFull = async (tab) => {
   try {
     blob = await stitchFullPage(tab);
   } finally {
-    chrome.action.setBadgeText({ text: '' });
+    await setRecordingBadge(await getRecording());
   }
   const settings = await S.getSettings();
   const meta = { title: tab.title, url: tab.url };
@@ -259,9 +259,99 @@ const capture = async (mode, tab, options = {}) => {
   }
 };
 
+/* ---------- screen recording ---------- */
+
+const RECORDER = 'pages/recorder.html';
+
+const getRecording = async () => (await chrome.storage.session.get('rec')).rec || null;
+
+const recorderTab = async () => (await chrome.tabs.query({ url: chrome.runtime.getURL(RECORDER) + '*' }))[0];
+
+const openRecorder = async (near) => {
+  const existing = await recorderTab();
+  if (existing) {
+    await chrome.tabs.update(existing.id, { active: true });
+    await chrome.windows.update(existing.windowId, { focused: true });
+  } else await openPage(RECORDER, near);
+};
+
+/* Page controls only live in the tab you are looking at. */
+const showControls = async (tabId, state) => {
+  try {
+    await chrome.scripting.executeScript({ target: { tabId }, files: ['content/rec-toolbar.js'] });
+    await toPage(tabId, { type: 'rec-ui', state });
+  } catch {
+    // chrome:// pages and the Web Store cannot show controls; the popup and shortcut still work.
+  }
+};
+
+const setRecordingBadge = async (state) => {
+  if (!state) {
+    await chrome.action.setBadgeText({ text: '' });
+    await chrome.action.setTitle({ title: 'Snap5' });
+    return;
+  }
+  const text = state.status === 'countdown' ? String(state.seconds) : state.status === 'paused' ? 'II' : 'REC';
+  await flashBadge(text, state.status === 'paused' ? '#b45309' : '#dc2626', 0);
+  await chrome.action.setTitle({ title: 'Snap5: recording' });
+};
+
+const applyRecording = async (state, recorderId) => {
+  const previous = await getRecording();
+  if (state) await chrome.storage.session.set({ rec: { ...state, tabId: recorderId } });
+  else await chrome.storage.session.remove('rec');
+  await setRecordingBadge(state);
+  if (state) {
+    const visible = await chrome.tabs.query({ active: true });
+    await Promise.all(visible.filter((t) => t.id !== recorderId).map((t) => showControls(t.id, state)));
+  } else if (previous) {
+    const all = await chrome.tabs.query({});
+    all.forEach((t) => toPage(t.id, { type: 'rec-ui', state: null }).catch(() => {}));
+  }
+};
+
+/* Updates arrive quickly during a countdown, so they are applied strictly in order. */
+let recordingQueue = Promise.resolve();
+const queueRecording = (state, recorderId) => {
+  recordingQueue = recordingQueue.then(() => applyRecording(state, recorderId)).catch((e) => console.warn('Snap5:', e.message));
+  return recordingQueue;
+};
+
+const followTab = async (tabId) => {
+  const rec = await getRecording();
+  if (!rec || rec.tabId === tabId) return;
+  const now = Date.now();
+  const elapsed = rec.status === 'recording' ? rec.elapsed + (now - rec.at) : rec.elapsed;
+  await showControls(tabId, { ...rec, elapsed, at: now });
+};
+
+chrome.tabs.onActivated.addListener(({ tabId }) => followTab(tabId));
+chrome.tabs.onUpdated.addListener((tabId, change, tab) => {
+  if (change.status === 'complete' && tab.active) followTab(tabId);
+});
+chrome.tabs.onRemoved.addListener(async (tabId) => {
+  if ((await getRecording())?.tabId === tabId) queueRecording(null);
+});
+
+const recorderCommand = (cmd) => chrome.runtime.sendMessage({ type: 'recorder-cmd', cmd }).catch(() => {});
+
+const toggleRecording = async (tab) => {
+  if (await getRecording()) recorderCommand('stop');
+  else await openRecorder(tab);
+};
+
 /* ---------- messages ---------- */
 
 const handlers = {
+  async 'rec-state'(msg, sender) {
+    await queueRecording(msg.state, sender.tab?.id);
+  },
+  async 'rec-cmd'(msg) {
+    recorderCommand(msg.cmd);
+  },
+  async 'open-recorder'(msg, sender) {
+    await openRecorder(sender.tab);
+  },
   async sequence(msg, sender) {
     if (!sender.tab?.active) return;
     capture(msg.times >= 3 ? 'full' : 'area', sender.tab);
@@ -303,7 +393,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 chrome.commands.onCommand.addListener(async (command, tab) => {
   const settings = await S.getSettings();
-  if (command === 'capture-delayed') capture('area', tab, { delay: settings.delaySeconds });
+  if (command === 'toggle-recording') await toggleRecording(tab);
+  else if (command === 'pause-recording') recorderCommand('toggle');
+  else if (command === 'capture-delayed') capture('area', tab, { delay: settings.delaySeconds });
   else capture(command.replace('capture-', ''), tab);
 });
 
@@ -327,7 +419,8 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     }
     return;
   }
-  capture(info.menuItemId, tab);
+  if (info.menuItemId === 'record') openRecorder(tab);
+  else capture(info.menuItemId, tab);
 });
 
 chrome.runtime.onInstalled.addListener(async () => {
@@ -336,6 +429,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   for (const menu of MENUS) {
     chrome.contextMenus.create({ ...menu, parentId: 'snap5', contexts: ['page', 'selection', 'link', 'image'] });
   }
+  chrome.contextMenus.create({ id: 'record', parentId: 'snap5', title: 'Record screen', contexts: ['page', 'selection', 'link', 'image'] });
   chrome.contextMenus.create({ id: 'edit-image', parentId: 'snap5', title: 'Edit this image', contexts: ['image'] });
 
   // Make already-open tabs work immediately, without a reload.
@@ -345,10 +439,11 @@ chrome.runtime.onInstalled.addListener(async () => {
         target: { tabId: tab.id, allFrames: true },
         func: () => {
           window.__snap5Trigger?.destroy();
-          document.querySelectorAll('snap5-root').forEach((n) => n.remove());
+          document.querySelectorAll('snap5-root, snap5-rec').forEach((n) => n.remove());
           window.__snap5KeyHandler = null;
           delete globalThis.Snap5;
           delete globalThis.__snap5Agent;
+          delete globalThis.__snap5Rec;
         },
       })
       .then(() => chrome.scripting.executeScript({ target: { tabId: tab.id, allFrames: true }, files: ['content/trigger.js'] }))

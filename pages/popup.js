@@ -44,6 +44,30 @@
     }),
   );
 
+  const showRecording = (rec) => {
+    $('recPanel').hidden = !rec;
+    $('recOpen').hidden = !!rec;
+    if (!rec) return;
+    const elapsed = rec.status === 'recording' ? rec.elapsed + (Date.now() - rec.at) : rec.elapsed;
+    const total = Math.floor(elapsed / 1000);
+    const time = `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+    $('recText').textContent = rec.status === 'countdown' ? `Starting in ${rec.seconds}…` : `${rec.status === 'paused' ? '❚❚ Paused' : '● Recording'} ${time}`;
+    $('recPause').textContent = rec.status === 'paused' ? 'Resume' : 'Pause';
+    $('recPause').hidden = rec.status === 'countdown';
+  };
+  const refreshRecording = async () => showRecording((await chrome.storage.session.get('rec')).rec);
+  await refreshRecording();
+  setInterval(refreshRecording, 500);
+  $('recPause').addEventListener('click', () => chrome.runtime.sendMessage({ type: 'rec-cmd', cmd: 'toggle' }));
+  $('recStop').addEventListener('click', async () => {
+    await chrome.runtime.sendMessage({ type: 'rec-cmd', cmd: 'stop' });
+    window.close();
+  });
+  $('recOpen').addEventListener('click', async () => {
+    await chrome.runtime.sendMessage({ type: 'open-recorder' });
+    window.close();
+  });
+
   document.querySelectorAll('[data-page]').forEach((button) =>
     button.addEventListener('click', () => {
       chrome.tabs.create({ url: chrome.runtime.getURL(button.dataset.page) });

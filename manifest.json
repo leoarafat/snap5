@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Snap5 — Fast Screenshot & Markup",
+  "name": "Snap5 — Screenshot & Screen Recorder",
   "short_name": "Snap5",
-  "version": "1.0.0",
-  "description": "Press 5 twice for area capture, 3 times to copy the full page. Markup, text, blur, PDF and more.",
+  "version": "1.1.0",
+  "description": "Screenshots with 5 5 and 5 5 5, markup, and a screen recorder with mic, camera, drawing and trim.",
   "minimum_chrome_version": "116",
   "permissions": ["activeTab", "scripting", "storage", "unlimitedStorage", "downloads", "clipboardWrite", "contextMenus"],
   "host_permissions": ["<all_urls>"],
@@ -37,8 +37,14 @@
       "suggested_key": { "default": "Alt+Shift+V" },
       "description": "Capture visible part"
     },
+    "toggle-recording": {
+      "suggested_key": { "default": "Alt+Shift+R" },
+      "description": "Open the recorder, or stop recording"
+    },
+    "pause-recording": {
+      "description": "Pause or resume recording"
+    },
     "capture-delayed": {
-      "suggested_key": { "default": "Alt+Shift+D" },
       "description": "Capture with a timer"
     }
   }

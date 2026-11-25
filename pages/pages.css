@@ -28,6 +28,19 @@ body.popup{width:332px;padding:12px}
 .check{display:flex;align-items:center;gap:8px;margin-top:9px;cursor:pointer;color:var(--muted);font-size:13px}
 .tip{margin-top:10px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
 
+.rec-button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:#dc2626;color:#fff;border:0;border-radius:10px;padding:10px 11px;margin-bottom:7px;cursor:pointer;font-weight:700}
+.rec-button:hover{background:#b91c1c}
+.rec-button span{margin-right:auto}
+.rec-button kbd{color:#fff;border-color:rgba(255,255,255,.45)}
+.rec-panel{background:var(--card);border:1.5px solid #dc2626;border-radius:10px;padding:9px 11px;margin-bottom:8px}
+.rec-panel b{font-variant-numeric:tabular-nums}
+.btn.rec-stop{background:#dc2626;border-color:#dc2626;color:#fff}
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.shot .thumb{position:relative}
+.shot .thumb span{position:absolute;right:7px;bottom:7px;background:rgba(0,0,0,.75);color:#fff;border-radius:6px;padding:0 7px;font:12px ui-monospace,Menlo,monospace}
+.shot .thumb img{background:#0b0d12}
+
 /* options + history */
 .wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
 .wrap.wide{max-width:1180px}

@@ -11,6 +11,15 @@
     <label class="check" style="margin:0"><input type="checkbox" id="enabled"> <span id="keyName">5</span> key on</label>
   </header>
 
+  <div id="recPanel" class="rec-panel" hidden>
+    <b id="recText">Recording</b>
+    <div class="row">
+      <button class="btn" id="recPause">Pause</button>
+      <button class="btn rec-stop" id="recStop">■ Stop &amp; save</button>
+    </div>
+  </div>
+  <button class="rec-button" id="recOpen" data-icon="record"><span>Record screen</span><kbd data-command="toggle-recording"></kbd></button>
+
   <div class="modes">
     <button class="mode" data-mode="area" data-icon="area"><span>Select area</span><kbd class="key2">5 5</kbd></button>
     <button class="mode" data-mode="full" data-icon="fullpage"><span>Full page (auto copy)</span><kbd class="key3">5 5 5</kbd></button>

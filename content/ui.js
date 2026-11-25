@@ -167,11 +167,15 @@
 
   const hideTransient = () => {
     dismissToast();
-    // Pinned images stay out of new screenshots.
+    // Pinned images and recording controls stay out of new screenshots.
+    document.querySelectorAll('snap5-rec').forEach((n) => (n.style.visibility = 'hidden'));
     root?.querySelectorAll('.pin').forEach((p) => (p.style.visibility = 'hidden'));
     return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
   };
-  const showPins = () => root?.querySelectorAll('.pin').forEach((p) => (p.style.visibility = ''));
+  const showPins = () => {
+    root?.querySelectorAll('.pin').forEach((p) => (p.style.visibility = ''));
+    document.querySelectorAll('snap5-rec').forEach((n) => (n.style.visibility = ''));
+  };
 
   S.ui = { mount, raise, element, toast, dismissToast, countdown, pin, hideTransient, showPins, get host() { return host; } };
 })();

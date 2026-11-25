@@ -36,16 +36,17 @@
 <body>
 
 <div class="cover"><img src="../icons/128.png" alt=""><h1>Snap5</h1></div>
-<p class="lead">A fast screenshot and markup extension for Google Chrome. User guide for MacBook, version 1.0.0.</p>
+<p class="lead">Screenshots, markup and screen recording for Google Chrome. User guide for MacBook, version 1.1.0.</p>
 
 <div class="keys">
   <div class="key"><b>5 &nbsp;5</b>Press 5 twice quickly: select an area, mark it up, then copy or download.</div>
   <div class="key"><b>5 &nbsp;5 &nbsp;5</b>Press 5 three times quickly: the whole page is captured and copied.</div>
 </div>
+<p><b>Screen recording:</b> press <kbd>⌥⇧R</kbd> or click the Snap5 icon → <b>Record screen</b> (section 7).</p>
 
 <h2>1. Install on your Mac (one time)</h2>
 <ol>
-  <li><b>Get the folder.</b> Download <code>Snap5-1.0.0.zip</code> from <a href="https://github.com/leoarafat/snap5/releases/latest">github.com/leoarafat/snap5/releases</a> and double-click it to unzip. You get a folder named <code>Snap5</code>. Move it somewhere permanent, such as <b>Documents</b>.</li>
+  <li><b>Get the folder.</b> Download <code>Snap5.zip</code> from <a href="https://github.com/leoarafat/snap5/releases/latest">github.com/leoarafat/snap5/releases</a> and double-click it to unzip. You get a folder named <code>Snap5</code>. Move it somewhere permanent, such as <b>Documents</b>.</li>
   <li>Open <b>Google Chrome</b>, type <code>chrome://extensions</code> in the address bar and press <kbd>Return</kbd>.</li>
   <li>Turn on <b>Developer mode</b> (switch at the top right).</li>
   <li>Click <b>Load unpacked</b> (top left).</li>
@@ -63,7 +64,7 @@
   <tr><td>Check or change the <kbd>⌥⇧</kbd> shortcuts</td><td>Open <code>chrome://extensions/shortcuts</code></td></tr>
   <tr><td>Use Snap5 on files opened from your Mac (<code>file://</code>)</td><td><code>chrome://extensions</code> → Snap5 → <b>Details</b> → turn on <b>Allow access to file URLs</b></td></tr>
   <tr><td>Use it in Incognito</td><td>Same <b>Details</b> page → <b>Allow in Incognito</b></td></tr>
-  <tr><td>Capture other Mac apps</td><td><b>System Settings → Privacy &amp; Security → Screen &amp; System Audio Recording</b> → turn on Google Chrome, then restart Chrome</td></tr>
+  <tr><td>Capture or record other Mac apps</td><td><b>System Settings → Privacy &amp; Security → Screen &amp; System Audio Recording</b> → turn on Google Chrome, then restart Chrome</td></tr>
 </table>
 
 <h2 class="page">2. Capture a selected area: 5 5</h2>
@@ -148,12 +149,52 @@
 </ul>
 <figure><img src="images/4-beautify.jpg" alt="Beautify window"><figcaption>Beautify adds a background, rounded corners, shadow and an optional watermark.</figcaption></figure>
 
-<h2 class="page">7. History and settings</h2>
+<h2 class="page">7. Screen recorder</h2>
+<h3>Record in three steps</h3>
+<ol>
+  <li>Click the Snap5 icon → <b>Record screen</b>, or press <kbd>⌥⇧R</kbd>.</li>
+  <li>Choose your options and click <b>Start recording</b>. In Chrome's window pick a tab, a window or the entire screen. For sound from a tab, also turn on <b>Share audio</b> there.</li>
+  <li>Stop with <b>■ Stop</b> on the floating bar, <b>Stop &amp; save</b> on the recorder tab, or <kbd>⌥⇧R</kbd>. Then press <b>Download</b>.</li>
+</ol>
+<p>The first time, Chrome asks to use your microphone and camera: click <b>Allow</b>. On a Mac also allow Google Chrome under <b>System Settings → Privacy &amp; Security</b> for <b>Screen &amp; System Audio Recording</b>, <b>Microphone</b> and <b>Camera</b>.</p>
+<figure><img src="images/7-recorder.jpg" alt="Recorder setup"><figcaption>Recorder setup.</figcaption></figure>
+<table>
+  <tr><th>Option</th><th>What you get</th></tr>
+  <tr><td>Screen / Screen + Camera / Camera only</td><td>Your screen, your screen with a camera bubble, or just the camera. Drag the bubble to place it, even while recording. Choose its shape and size.</td></tr>
+  <tr><td>Record only a region</td><td>After choosing the source, drag over the part to keep.</td></tr>
+  <tr><td>Microphone, tab / system sound</td><td>Record your voice, the sound of the tab, or both. Mute the mic at any time. Whole-screen system sound depends on your macOS and Chrome versions; a Chrome tab is the reliable choice.</td></tr>
+  <tr><td>Resolution, frame rate, quality, format</td><td>Up to 4K, 15, 30 or 60 fps, MP4 or WebM. Higher settings need a faster computer and make larger files.</td></tr>
+  <tr><td>Countdown, stop automatically, auto download</td><td>Time to get ready, a time limit, and saving to Downloads when finished.</td></tr>
+</table>
+
+<h3 class="page">While recording</h3>
+<p>Switch to any tab or app; the recording continues. <b>Keep the recorder tab open.</b> The toolbar icon shows <b>REC</b>, and the Snap5 menu has Pause and Stop.</p>
+<figure><img src="images/8-recording.jpg" alt="Floating recording controls and drawing"><figcaption>Floating bar on a web page, with a box and arrow drawn during the recording.</figcaption></figure>
+<ul>
+  <li><b>Floating bar:</b> timer, pause, stop, mic and camera. Drag it anywhere, or shrink it with <b>–</b>. It is part of the video when you record the tab or screen. Turn it off under "While recording" if you do not want that.</li>
+  <li><b>Draw:</b> pen, highlighter, arrow and box. With <b>Fade</b> on, drawings disappear by themselves. <kbd>Esc</kbd> returns to normal clicking.</li>
+  <li><b>Highlight clicks</b> shows a ring where you click. <b>Show shortcut keys</b> displays shortcuts such as ⌘C, never ordinary typing.</li>
+  <li>The bar, drawing, click rings and key display work on normal web pages only, not in other apps or on <code>chrome://</code> pages.</li>
+  <li>The recorder tab also has <b>Screenshot</b>, <b>Restart</b> and <b>Discard</b>. <kbd>Space</kbd> pauses there.</li>
+  <li>Pause/resume can have its own shortcut: set it in <code>chrome://extensions/shortcuts</code>.</li>
+</ul>
+
+<h3>Save, trim and share</h3>
+<figure><img src="images/9-review.jpg" alt="Review and trim screen"><figcaption>Play, name, download and trim.</figcaption></figure>
+<ul>
+  <li><b>Download</b> or <b>Save as…</b> saves the video file. <b>Share</b> opens the Mac share menu when the file type allows it.</li>
+  <li><b>Trim:</b> set start and end, then <b>Save trimmed copy</b>. The original stays. Keep that tab in front while it works.</li>
+  <li><b>Screenshot this frame</b> opens a still picture in the markup editor.</li>
+  <li>Every recording stays in <b>History → My recordings</b> until you delete it.</li>
+</ul>
+<div class="note"><b>Safety net:</b> the video is saved on your Mac every second while you record. If the tab or Chrome closes by accident, open the recorder again and click <b>Recover</b>. The last moment before the crash may be missing. Download important videos: removing the extension deletes everything stored inside it.</div>
+
+<h2 class="page">8. History and settings</h2>
 <p><b>History</b> keeps your recent captures on your Mac. You can edit, copy, download or delete them.</p>
 <figure><img src="images/6-settings.jpg" alt="Snap5 settings"><figcaption>Settings page.</figcaption></figure>
 <p>In <b>Settings</b> you can change the trigger key and how fast you must press it, turn the key off on chosen websites, choose the file format, name and folder, turn the shutter sound on or off, and set automatic download.</p>
 
-<h2>8. If something does not work</h2>
+<h2>9. If something does not work</h2>
 <table>
   <tr><th>Problem</th><th>Solution</th></tr>
   <tr><td><kbd>5</kbd> <kbd>5</kbd> does nothing</td><td>Reload the tab with <kbd>⌘R</kbd>. Click on an empty part of the page first. Check that the key is on in the Snap5 menu.</td></tr>
@@ -163,15 +204,18 @@
   <tr><td>It is hard to press fast enough</td><td>Settings → increase the time between presses.</td></tr>
   <tr><td>Pictures are missing in a full page capture</td><td>Settings → increase "wait per scroll".</td></tr>
   <tr><td>Other apps cannot be captured</td><td>Allow Screen Recording for Chrome (see section 1).</td></tr>
-  <tr><td>It works only inside Chrome</td><td>Correct. This is a Chrome extension. A Mac app would be needed for a system-wide key.</td></tr>
+  <tr><td>Recording will not start</td><td>Allow Screen &amp; System Audio Recording for Google Chrome in System Settings, then restart Chrome.</td></tr>
+  <tr><td>No sound in the video</td><td>Check that the microphone is on and its level bar moves. For tab sound, turn on <b>Share audio</b> in Chrome's picker.</td></tr>
+  <tr><td>The video stutters</td><td>Choose 1080p or 720p and 30 fps, and close heavy apps.</td></tr>
+  <tr><td>It works only inside Chrome</td><td>The <kbd>5</kbd> keys work only on Chrome pages. This is a Chrome extension; a Mac app would be needed for a system-wide key. The recorder can still record other apps.</td></tr>
 </table>
 
-<h2>9. Update, remove and privacy</h2>
+<h2>10. Update, remove and privacy</h2>
 <ul>
   <li><b>Update:</b> replace the files in the same folder, then click the reload arrow on Snap5 in <code>chrome://extensions</code>.</li>
   <li><b>Remove:</b> click <b>Remove</b> on the same page. This also deletes the history.</li>
-  <li><b>Privacy:</b> Snap5 has no account, no analytics and no server. Screenshots are not uploaded anywhere. History is stored inside Chrome on your own computer. Chrome asks for access to all websites because Snap5 must be able to capture whichever page you are on.</li>
-  <li><b>Not included:</b> screen video recording and text recognition (OCR).</li>
+  <li><b>Privacy:</b> Snap5 has no account, no analytics and no server. Screenshots and videos are not uploaded anywhere. History and recordings are stored inside Chrome on your own computer. The camera and microphone are used only by the recorder. Chrome asks for access to all websites because Snap5 must be able to capture whichever page you are on.</li>
+  <li><b>Not included:</b> text recognition (OCR), automatic captions, GIF export and online share links.</li>
 </ul>
 </body>
 </html>

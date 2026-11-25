@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Snap5 Recorder</title>
+  <link rel="icon" href="../icons/32.png">
+  <link rel="stylesheet" href="pages.css">
+  <link rel="stylesheet" href="recorder.css">
+</head>
+<body class="rec">
+  <header class="rec-head">
+    <img src="../icons/48.png" alt="">
+    <h1>Screen Recorder</h1>
+    <span class="grow"></span>
+    <a class="btn" href="history.html#recordings" target="_blank">My recordings</a>
+  </header>
+
+  <div class="banner" id="recover" hidden>
+    <span id="recoverText"></span>
+    <button class="btn main" id="recoverBtn">Recover</button>
+    <button class="btn danger" id="recoverDrop">Delete it</button>
+  </div>
+  <div class="banner error" id="problem" hidden role="alert"></div>
+
+  <!-- ============ setup ============ -->
+  <main id="setup" class="layout">
+    <section>
+      <div class="segments" id="modes" role="radiogroup" aria-label="What to record">
+        <button data-mode="screen" data-icon="monitor">Screen</button>
+        <button data-mode="both" data-icon="webcam">Screen + Camera</button>
+        <button data-mode="camera" data-icon="video">Camera only</button>
+      </div>
+      <div class="stage" id="setupStage">
+        <div class="placeholder" id="placeholder">
+          <b>Your screen will be recorded here</b>
+          <span>You choose a tab, window or the whole screen after pressing Start.</span>
+        </div>
+        <video id="cameraFull" autoplay muted playsinline hidden></video>
+        <div class="bubble" id="bubble" hidden title="Drag to move the camera"><video id="cameraBubble" autoplay muted playsinline></video></div>
+      </div>
+      <button class="start" id="start"><span class="dot"></span> Start recording</button>
+      <p class="hint">While recording you can switch to any tab or app. Keep this tab open. <kbd>⌥⇧R</kbd> stops the recording.</p>
+    </section>
+
+    <aside class="panel">
+      <fieldset id="sourceBox">
+        <legend>Source</legend>
+        <label class="line"><span>Prefer</span>
+          <select data-opt="surface">
+            <option value="monitor">Entire screen</option>
+            <option value="window">A window</option>
+            <option value="browser">A Chrome tab</option>
+          </select>
+        </label>
+        <label class="line"><span>Record only a region</span><input type="checkbox" data-opt="region"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Audio</legend>
+        <label class="line"><span>Microphone</span><input type="checkbox" data-opt="micOn"></label>
+        <div id="micBox">
+          <select data-opt="micId" id="micSelect" aria-label="Microphone device"></select>
+          <div class="meter" title="Microphone level"><i id="meter"></i></div>
+          <label class="line"><span>Noise reduction</span><input type="checkbox" data-opt="noise"></label>
+          <label class="line"><span>Mic volume</span><input type="range" data-opt="micVolume" min="0" max="2" step="0.1"></label>
+        </div>
+        <label class="line" id="systemLine"><span>Tab / system sound<small>Also turn on “Share audio” in Chrome’s picker</small></span><input type="checkbox" data-opt="systemAudio"></label>
+      </fieldset>
+
+      <fieldset id="cameraBox">
+        <legend>Camera</legend>
+        <select data-opt="cameraId" id="cameraSelect" aria-label="Camera device"></select>
+        <label class="line" data-bubble><span>Shape</span>
+          <select data-opt="camShape"><option value="circle">Circle</option><option value="square">Rounded square</option><option value="wide">Wide</option></select>
+        </label>
+        <label class="line" data-bubble><span>Size</span><input type="range" data-opt="camSize" min="0.1" max="0.45" step="0.01"></label>
+        <label class="line"><span>Mirror</span><input type="checkbox" data-opt="mirror"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Video</legend>
+        <label class="line"><span>Resolution</span>
+          <select data-opt="resolution"><option value="0">Original (sharpest)</option><option value="2160">Up to 4K</option><option value="1440">Up to 1440p</option><option value="1080">Up to 1080p</option><option value="720">Up to 720p</option></select>
+        </label>
+        <label class="line"><span>Frame rate</span><select data-opt="fps"><option value="30">30 fps</option><option value="60">60 fps (extra smooth)</option><option value="15">15 fps (small file)</option></select></label>
+        <label class="line"><span>Quality</span><select data-opt="quality"><option value="standard">Standard</option><option value="high">High</option><option value="best">Best</option></select></label>
+        <label class="line"><span>Format</span><select data-opt="format"><option value="mp4">MP4 (best)</option><option value="webm">WebM</option></select></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>While recording</legend>
+        <label class="line"><span>Countdown</span><select data-opt="countdown"><option value="0">None</option><option value="3">3 seconds</option><option value="5">5 seconds</option><option value="10">10 seconds</option></select></label>
+        <label class="line"><span>Controls on web pages<small>Pause, stop and draw. Visible in the video.</small></span><input type="checkbox" data-opt="floating"></label>
+        <label class="line"><span>Highlight mouse clicks<small>On web pages</small></span><input type="checkbox" data-opt="clicks"></label>
+        <label class="line"><span>Show shortcut keys<small>Never shows normal typing</small></span><input type="checkbox" data-opt="keys"></label>
+        <label class="line"><span>Stop automatically</span><select data-opt="limit"><option value="0">Never</option><option value="1">After 1 minute</option><option value="5">After 5 minutes</option><option value="15">After 15 minutes</option><option value="30">After 30 minutes</option><option value="60">After 1 hour</option></select></label>
+        <label class="line"><span>Download when finished</span><input type="checkbox" data-opt="autoDownload"></label>
+      </fieldset>
+    </aside>
+  </main>
+
+  <!-- ============ region ============ -->
+  <main id="regionView" class="single" hidden>
+    <h2>Drag over the area to record</h2>
+    <div class="region-wrap" id="regionWrap">
+      <video id="regionVideo" autoplay muted playsinline></video>
+      <div id="regionBox" hidden></div>
+    </div>
+    <div class="actions">
+      <button class="btn green" id="regionOk" disabled>Record this region</button>
+      <button class="btn" id="regionAll">Record everything</button>
+      <button class="btn" id="regionCancel">Cancel</button>
+    </div>
+  </main>
+
+  <!-- ============ countdown ============ -->
+  <main id="countView" class="single" hidden>
+    <div class="count" id="count">3</div>
+    <button class="btn" id="countCancel">Cancel (Esc)</button>
+  </main>
+
+  <!-- ============ recording ============ -->
+  <main id="live" class="single" hidden>
+    <div class="live-top">
+      <span class="pill" id="liveStatus"><span class="dot"></span> Recording</span>
+      <span class="clock" id="clock">00:00</span>
+      <span class="muted" id="liveSize"></span>
+    </div>
+    <div class="stage live-stage" id="liveStage">
+      <video id="liveVideo" autoplay muted playsinline></video>
+      <div class="drag-layer" id="liveDrag" hidden title="Drag to move the camera"></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="pauseBtn">Pause</button>
+      <button class="btn" id="micBtn" hidden>Mute mic</button>
+      <button class="btn" id="camBtn" hidden>Hide camera</button>
+      <button class="btn" id="frameBtn">Screenshot</button>
+      <button class="btn" id="restartBtn">Restart</button>
+      <button class="btn danger" id="discardBtn">Discard</button>
+      <button class="btn stop" id="stopBtn">■ Stop &amp; save</button>
+    </div>
+    <p class="hint">Switch to the tab or app you want to show. The recording continues.</p>
+  </main>
+
+  <!-- ============ review ============ -->
+  <main id="review" class="single" hidden>
+    <video id="player" controls playsinline></video>
+    <div class="file-row">
+      <input type="text" id="fileName" aria-label="File name">
+      <span class="muted" id="fileInfo"></span>
+    </div>
+    <div class="actions">
+      <button class="btn green" id="downloadBtn">⬇ Download</button>
+      <button class="btn" id="saveAsBtn">Save as…</button>
+      <button class="btn" id="shareBtn">Share</button>
+      <button class="btn" id="snapBtn">Screenshot this frame</button>
+      <label class="speed">Speed <select id="speed"><option>0.5</option><option selected>1</option><option>1.25</option><option>1.5</option><option>2</option></select></label>
+    </div>
+    <details class="trim" id="trimBox">
+      <summary>✂ Trim the video</summary>
+      <label><span>Start <b id="trimStartText">00:00</b></span><input type="range" id="trimStart" min="0" step="0.1" value="0"></label>
+      <label><span>End <b id="trimEndText">00:00</b></span><input type="range" id="trimEnd" min="0" step="0.1" value="0"></label>
+      <div class="actions">
+        <button class="btn" id="markStart">Start = current time</button>
+        <button class="btn" id="markEnd">End = current time</button>
+        <button class="btn" id="trimPlay">Preview</button>
+        <button class="btn main" id="trimExport">Save trimmed copy</button>
+        <button class="btn" id="trimCancel" hidden>Cancel</button>
+      </div>
+      <progress id="trimProgress" max="1" value="0" hidden></progress>
+      <p class="hint">The original is kept. Trimming takes about as long as the new clip; keep this tab in front until it finishes.</p>
+    </details>
+    <div class="actions">
+      <button class="btn main" id="newBtn">● New recording</button>
+      <button class="btn danger" id="deleteBtn">Delete this recording</button>
+    </div>
+    <p class="hint" id="savedNote">Saved in Snap5 → My recordings until you delete it.</p>
+  </main>
+
+  <div id="toast" role="status" hidden></div>
+
+  <script src="../lib/common.js"></script>
+  <script src="../lib/db.js"></script>
+  <script src="../lib/video.js"></script>
+  <script src="../lib/toolbar.js"></script>
+  <script src="recorder-engine.js"></script>
+  <script src="recorder.js"></script>
+</body>
+</html>

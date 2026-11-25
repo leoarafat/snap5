@@ -40,7 +40,7 @@
   /* Fixed bars would repeat in every slice: show top bars once at the start, bottom bars once at the end. */
   const tame = ({ first, last }) => {
     for (const node of document.querySelectorAll('body *')) {
-      if (node.localName === 'snap5-root') continue;
+      if (node.localName === 'snap5-root' || node.localName === 'snap5-rec') continue;
       const style = getComputedStyle(node);
       if (style.position === 'sticky') {
         if (!session.sticky.has(node)) {
