@@ -32,8 +32,10 @@ In Google Chrome the `5` key is left to the extension (can be changed in the men
 
 ## Test
 
+**The test takes over the screen and keyboard for about 20 seconds.** Run it only when nobody is using the Mac.
+
 ```sh
-./build.sh && ./build/Snap5.app/Contents/MacOS/Snap5 --selftest /tmp/snap5-selftest
+./build.sh && SNAP5_SELFTEST=i-am-not-using-this-mac ./build/Snap5.app/Contents/MacOS/Snap5 --selftest /tmp/snap5-selftest
 ```
 
 The self-test uses a drawn picture and a private clipboard. It does not test real screen capture or the global keys, which need the permissions above.

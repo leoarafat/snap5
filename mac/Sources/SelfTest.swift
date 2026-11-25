@@ -3,6 +3,9 @@ import WebKit
 
 /// `Snap5 --selftest <folder>`: runs the real capture window on a drawn test picture.
 /// Needs no privacy permission and never touches the user's clipboard or folders.
+///
+/// WARNING: it opens windows above every app that take over the keyboard and cover part of the
+/// screen. While it runs, clicking and typing on this Mac do not work normally.
 enum SelfTest {
     static var failures = 0
 
@@ -72,6 +75,17 @@ enum SelfTest {
     }
 
     static func run(_ arguments: [String]) {
+        // Never take over the screen by accident or from an automated script.
+        guard ProcessInfo.processInfo.environment["SNAP5_SELFTEST"] == "i-am-not-using-this-mac" else {
+            print("""
+            Not run. The self-test takes over the screen and keyboard for about 20 seconds.
+            Save your work, stop using the Mac, then run it with:
+            SNAP5_SELFTEST=i-am-not-using-this-mac Snap5 --selftest <folder>
+            """)
+            exit(2)
+        }
+        // A stuck test must never leave a window over the screen.
+        DispatchQueue.global().asyncAfter(deadline: .now() + 60) { exit(3) }
         let folder = URL(fileURLWithPath: arguments.first ?? NSTemporaryDirectory() + "snap5-selftest")
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         let app = NSApplication.shared
@@ -110,7 +124,7 @@ enum SelfTest {
             session.onReady = {
                 ready = true
                 session.web.trackingAreas.forEach { session.web.removeTrackingArea($0) }
-                session.window.alphaValue = 0.02 // nearly invisible during the test
+                // Left fully visible on purpose: a hidden window would swallow clicks with no explanation.
                 session.window.makeKeyAndOrderFront(nil)
                 session.window.orderFrontRegardless()
                 session.window.makeFirstResponder(session.web)
