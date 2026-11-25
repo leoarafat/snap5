@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Snap5 History</title>
+  <link rel="icon" href="../icons/32.png">
+  <link rel="stylesheet" href="pages.css">
+</head>
+<body>
+  <div class="wrap wide">
+    <div class="top">
+      <h1>Screenshot history</h1>
+      <button class="btn danger" id="clear">Delete all</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>No screenshots yet.</div>
+  </div>
+  <script src="../lib/common.js"></script>
+  <script src="../lib/db.js"></script>
+  <script src="../lib/export.js"></script>
+  <script src="history.js"></script>
+</body>
+</html>

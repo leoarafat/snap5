@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Snap5 — Fast Screenshot & Markup",
+  "short_name": "Snap5",
+  "version": "1.0.0",
+  "description": "Press 5 twice for area capture, 3 times to copy the full page. Markup, text, blur, PDF and more.",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "storage", "unlimitedStorage", "downloads", "clipboardWrite", "contextMenus"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Snap5",
+    "default_popup": "pages/popup.html",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/trigger.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "options_ui": { "page": "pages/options.html", "open_in_tab": true },
+  "commands": {
+    "capture-area": {
+      "suggested_key": { "default": "Alt+Shift+S" },
+      "description": "Capture a selected area"
+    },
+    "capture-full": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Capture full page (auto copy)"
+    },
+    "capture-visible": {
+      "suggested_key": { "default": "Alt+Shift+V" },
+      "description": "Capture visible part"
+    },
+    "capture-delayed": {
+      "suggested_key": { "default": "Alt+Shift+D" },
+      "description": "Capture with a timer"
+    }
+  }
+}

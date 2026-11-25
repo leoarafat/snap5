@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="pages.css">
+</head>
+<body class="popup">
+  <header>
+    <img src="../icons/48.png" alt="">
+    <b>Snap5</b>
+    <label class="check" style="margin:0"><input type="checkbox" id="enabled"> <span id="keyName">5</span> key on</label>
+  </header>
+
+  <div class="modes">
+    <button class="mode" data-mode="area" data-icon="area"><span>Select area</span><kbd class="key2">5 5</kbd></button>
+    <button class="mode" data-mode="full" data-icon="fullpage"><span>Full page (auto copy)</span><kbd class="key3">5 5 5</kbd></button>
+    <button class="mode" data-mode="visible" data-icon="visible"><span>Visible part</span><kbd data-command="capture-visible"></kbd></button>
+    <button class="mode" data-mode="element" data-icon="element"><span>Capture an element</span></button>
+    <button class="mode" data-mode="delayed" data-icon="timer"><span>Timer: after <i id="delayText">3</i> seconds</span><kbd data-command="capture-delayed"></kbd></button>
+    <button class="mode" data-mode="desktop" data-icon="monitor"><span>Whole screen / other app</span></button>
+  </div>
+
+  <div class="row">
+    <button class="btn" data-page="pages/editor.html">Edit image</button>
+    <button class="btn" data-page="pages/history.html">History</button>
+    <button class="btn" data-page="pages/options.html">Settings</button>
+  </div>
+
+  <label class="check" id="siteRow" hidden><input type="checkbox" id="siteOff"> <span id="siteText"></span></label>
+  <div class="tip">Pressing 5 while typing in a text box does not take a screenshot.</div>
+
+  <script src="../lib/common.js"></script>
+  <script src="../lib/toolbar.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

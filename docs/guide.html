@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Snap5 User Guide</title>
+<style>
+  @page{size:A4;margin:16mm 15mm 18mm}
+  *{box-sizing:border-box}
+  body{font:11pt/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;color:#17191f;margin:0}
+  h1{font-size:30pt;margin:0}
+  h2{font-size:16pt;margin:22px 0 8px;padding-bottom:5px;border-bottom:2px solid #4f46e5;break-after:avoid}
+  h3{font-size:12pt;margin:15px 0 5px;break-after:avoid}
+  p{margin:6px 0}
+  ol,ul{margin:6px 0;padding-left:21px}
+  li{margin:3px 0}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:10.2pt}
+  th,td{text-align:left;padding:5px 8px;border:1px solid #dfe2e8;vertical-align:top}
+  th{background:#f1f2f9}
+  tr{break-inside:avoid}
+  kbd{border:1px solid #c9cdd6;border-bottom-width:2px;border-radius:4px;padding:0 5px;font:9.5pt ui-monospace,Menlo,monospace;background:#fff;white-space:nowrap}
+  code{background:#f1f2f6;border-radius:4px;padding:1px 5px;font:10pt ui-monospace,Menlo,monospace}
+  figure{margin:10px 0;break-inside:avoid}
+  figure img{display:block;max-width:100%;max-height:82mm;margin:0 auto;border:1px solid #d5d9e0;border-radius:7px}
+  figcaption{font-size:9.5pt;color:#5d6573;margin-top:4px;text-align:center}
+  .cover{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+  .cover img{width:60px;height:60px}
+  .lead{font-size:12.5pt;color:#454c59;margin-bottom:14px}
+  .keys{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .key{border:1.5px solid #4f46e5;border-radius:10px;padding:11px 14px}
+  .key b{display:block;font-size:19pt;color:#4f46e5}
+  .note{background:#fff7e6;border-left:4px solid #f59e0b;padding:8px 12px;border-radius:4px;margin:10px 0;break-inside:avoid}
+  .page{break-before:page}
+  .split{display:grid;grid-template-columns:1fr 195px;gap:18px;align-items:start}
+</style>
+</head>
+<body>
+
+<div class="cover"><img src="../icons/128.png" alt=""><h1>Snap5</h1></div>
+<p class="lead">A fast screenshot and markup extension for Google Chrome. User guide for MacBook, version 1.0.0.</p>
+
+<div class="keys">
+  <div class="key"><b>5 &nbsp;5</b>Press 5 twice quickly: select an area, mark it up, then copy or download.</div>
+  <div class="key"><b>5 &nbsp;5 &nbsp;5</b>Press 5 three times quickly: the whole page is captured and copied.</div>
+</div>
+
+<h2>1. Install on your Mac (one time)</h2>
+<ol>
+  <li><b>Get the folder.</b> Download <code>Snap5-1.0.0.zip</code> from <a href="https://github.com/leoarafat/snap5/releases/latest">github.com/leoarafat/snap5/releases</a> and double-click it to unzip. You get a folder named <code>Snap5</code>. Move it somewhere permanent, such as <b>Documents</b>.</li>
+  <li>Open <b>Google Chrome</b>, type <code>chrome://extensions</code> in the address bar and press <kbd>Return</kbd>.</li>
+  <li>Turn on <b>Developer mode</b> (switch at the top right).</li>
+  <li>Click <b>Load unpacked</b> (top left).</li>
+  <li>Choose the <code>Snap5</code> folder (the one that contains <code>manifest.json</code>) and click <b>Select</b>.</li>
+  <li>Click the puzzle-piece icon next to the address bar, then click the pin beside <b>Snap5</b>.</li>
+</ol>
+<div class="note"><b>Do not delete or move the folder after installing.</b> Chrome runs the extension directly from it. If you move it, load it again from the new place.</div>
+
+<h3>Test it</h3>
+<p>Open any website. Click once on an empty part of the page, then press <kbd>5</kbd> <kbd>5</kbd>. The screen dims and you can select. Press <kbd>Esc</kbd> to leave. If a tab that was already open does not respond, reload it with <kbd>⌘R</kbd>.</p>
+
+<h3>Optional settings</h3>
+<table>
+  <tr><th>If you want to</th><th>Do this</th></tr>
+  <tr><td>Check or change the <kbd>⌥⇧</kbd> shortcuts</td><td>Open <code>chrome://extensions/shortcuts</code></td></tr>
+  <tr><td>Use Snap5 on files opened from your Mac (<code>file://</code>)</td><td><code>chrome://extensions</code> → Snap5 → <b>Details</b> → turn on <b>Allow access to file URLs</b></td></tr>
+  <tr><td>Use it in Incognito</td><td>Same <b>Details</b> page → <b>Allow in Incognito</b></td></tr>
+  <tr><td>Capture other Mac apps</td><td><b>System Settings → Privacy &amp; Security → Screen &amp; System Audio Recording</b> → turn on Google Chrome, then restart Chrome</td></tr>
+</table>
+
+<h2 class="page">2. Capture a selected area: 5 5</h2>
+<ol>
+  <li>Press <kbd>5</kbd> twice quickly. The page freezes, so open menus stay in the picture.</li>
+  <li><b>Drag</b> over the area, or <b>click once</b> to grab the box, picture or section under the pointer.</li>
+  <li>Adjust with the round handles. Arrow keys move the selection; <kbd>Shift</kbd> + arrows resize it.</li>
+  <li>Mark it up with the toolbar if you like.</li>
+  <li>Press <kbd>Return</kbd> (or double-click, or click <b>Copy</b>), then paste with <kbd>⌘V</kbd> in WhatsApp, Messenger, email, Slack or any document. Press <kbd>⌘S</kbd> to download.</li>
+</ol>
+<figure><img src="images/1-markup.jpg" alt="Selection with markup"><figcaption>A selected area with a box, arrow, text, step numbers and a black-out bar.</figcaption></figure>
+<p>Before selecting: <kbd>Return</kbd> selects the whole screen, <kbd>F</kbd> captures the full page, and <kbd>C</kbd> copies the color code under the pointer.</p>
+
+<h2 class="page">3. Markup tools</h2>
+<table>
+  <tr><th>Key</th><th>Tool</th><th>Key</th><th>Tool</th></tr>
+  <tr><td><kbd>V</kbd></td><td>Move or resize a mark</td><td><kbd>B</kbd></td><td>Blur</td></tr>
+  <tr><td><kbd>A</kbd></td><td>Arrow</td><td><kbd>X</kbd></td><td>Pixelate</td></tr>
+  <tr><td><kbd>R</kbd></td><td>Rectangle</td><td><kbd>K</kbd></td><td>Black out private information</td></tr>
+  <tr><td><kbd>O</kbd></td><td>Ellipse</td><td><kbd>S</kbd></td><td>Spotlight (dims everything else)</td></tr>
+  <tr><td><kbd>L</kbd></td><td>Line</td><td><kbd>M</kbd></td><td>Magnify</td></tr>
+  <tr><td><kbd>P</kbd></td><td>Pen</td><td><kbd>U</kbd></td><td>Ruler (measures pixels)</td></tr>
+  <tr><td><kbd>H</kbd></td><td>Highlighter</td><td><kbd>E</kbd></td><td>Emoji or sticker</td></tr>
+  <tr><td><kbd>T</kbd></td><td>Text</td><td><kbd>I</kbd></td><td>Color picker</td></tr>
+  <tr><td><kbd>N</kbd></td><td>Step numbers 1, 2, 3</td><td></td><td></td></tr>
+</table>
+<ul>
+  <li><b>Color and size:</b> click the colored circle. <kbd>[</kbd> and <kbd>]</kbd> make marks thinner or thicker.</li>
+  <li><b>Filled shape:</b> <kbd>F</kbd>. <b>Text background:</b> <kbd>G</kbd>.</li>
+  <li><b>Straight lines, squares and circles:</b> hold <kbd>Shift</kbd> while drawing.</li>
+  <li><b>Text:</b> click, type, press <kbd>Return</kbd>. <kbd>Shift</kbd> + <kbd>Return</kbd> starts a new line. Press <kbd>V</kbd> and double-click text to edit it.</li>
+  <li><b>Undo and redo:</b> <kbd>⌘Z</kbd> and <kbd>⌘⇧Z</kbd>. <kbd>Delete</kbd> removes the selected mark, <kbd>⌘D</kbd> duplicates it.</li>
+</ul>
+<div class="note">To hide passwords, phone numbers or account numbers, use <b>Black out</b> (<kbd>K</kbd>). Blurred or pixelated text can sometimes be recovered.</div>
+
+<h3>Other toolbar buttons</h3>
+<ul>
+  <li><b>Pin</b> (<kbd>⌘P</kbd>): keeps the picture floating on the page so you can compare or copy from it.</li>
+  <li><b>Full editor</b>, <b>PDF</b>, <b>Full page</b> and <b>Close</b>. Hover over any button to see its name.</li>
+</ul>
+
+<h2>4. Capture the full page: 5 5 5</h2>
+<ol>
+  <li>Press <kbd>5</kbd> three times quickly.</li>
+  <li>The page scrolls by itself. The icon badge shows progress. <b>Stay on that tab.</b> Press <kbd>Esc</kbd> to cancel.</li>
+  <li>When the box appears at the bottom right, the picture is already copied. Paste with <kbd>⌘V</kbd>.</li>
+  <li>The same box lets you <b>Edit / Mark up</b>, <b>Download</b>, save as <b>PDF</b> or <b>Copy again</b>.</li>
+</ol>
+<figure><img src="images/2-fullpage.jpg" alt="Full page copied message"><figcaption>The message shown after a full page capture.</figcaption></figure>
+<p>Very long chat or social feed pages are captured only as far as they had loaded when the capture started. On ordinary <code>http://</code> pages Chrome blocks the clipboard, so Snap5 opens its editor tab and copies from there.</p>
+
+<h2 class="page">5. Toolbar menu and other capture modes</h2>
+<div class="split">
+  <div>
+    <p>Click the Snap5 icon in Chrome's toolbar:</p>
+    <ul>
+      <li><b>Select area</b> and <b>Full page</b></li>
+      <li><b>Visible part</b>: what you see now</li>
+      <li><b>Capture an element</b>: click one part of the page</li>
+      <li><b>Timer</b>: gives you time to open a menu first</li>
+      <li><b>Whole screen / other app</b>: pick a screen or window</li>
+      <li><b>Edit image</b>, <b>History</b>, <b>Settings</b></li>
+    </ul>
+    <p>You can also right-click a web page and choose <b>Snap5 screenshot</b>. Right-click a picture and choose <b>Edit this image</b>.</p>
+    <table>
+      <tr><th>Shortcut (works inside text boxes too)</th><th>Action</th></tr>
+      <tr><td><kbd>⌥ Option</kbd> + <kbd>⇧ Shift</kbd> + <kbd>S</kbd></td><td>Select area</td></tr>
+      <tr><td><kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>F</kbd></td><td>Full page</td></tr>
+      <tr><td><kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>V</kbd></td><td>Visible part</td></tr>
+      <tr><td><kbd>⌥</kbd> <kbd>⇧</kbd> <kbd>D</kbd></td><td>Timer</td></tr>
+    </table>
+  </div>
+  <figure><img src="images/popup.png" alt="Snap5 menu"></figure>
+</div>
+
+<h2>6. The full editor</h2>
+<figure><img src="images/3-editor.jpg" alt="Snap5 editor"><figcaption>All markup tools, plus crop, rotate, resize and export.</figcaption></figure>
+<ul>
+  <li><b>Open any picture:</b> use <b>Open image</b>, drag a file in, or paste with <kbd>⌘V</kbd>. Pasting onto an open picture adds it as a movable layer.</li>
+  <li><b>Crop, Rotate, Resize</b> and <b>Read QR</b>.</li>
+  <li><b>Export:</b> Copy, PNG, JPG, WebP, PDF, Print and Share. Zoom with <kbd>⌘</kbd> + scroll.</li>
+</ul>
+<figure><img src="images/4-beautify.jpg" alt="Beautify window"><figcaption>Beautify adds a background, rounded corners, shadow and an optional watermark.</figcaption></figure>
+
+<h2 class="page">7. History and settings</h2>
+<p><b>History</b> keeps your recent captures on your Mac. You can edit, copy, download or delete them.</p>
+<figure><img src="images/6-settings.jpg" alt="Snap5 settings"><figcaption>Settings page.</figcaption></figure>
+<p>In <b>Settings</b> you can change the trigger key and how fast you must press it, turn the key off on chosen websites, choose the file format, name and folder, turn the shutter sound on or off, and set automatic download.</p>
+
+<h2>8. If something does not work</h2>
+<table>
+  <tr><th>Problem</th><th>Solution</th></tr>
+  <tr><td><kbd>5</kbd> <kbd>5</kbd> does nothing</td><td>Reload the tab with <kbd>⌘R</kbd>. Click on an empty part of the page first. Check that the key is on in the Snap5 menu.</td></tr>
+  <tr><td>The cursor is in a text box</td><td>This is on purpose, so typing "55" is safe. Use <kbd>⌥⇧S</kbd> or <kbd>⌥⇧F</kbd>.</td></tr>
+  <tr><td>New Tab, <code>chrome://</code> pages or Chrome Web Store</td><td>Chrome does not let extensions run there. Use the Snap5 icon or a shortcut; the picture opens in the editor.</td></tr>
+  <tr><td>On YouTube the video jumps when you press 5</td><td>The site also uses that key. Use <kbd>⌥⇧S</kbd>, or turn the key off for that site in the Snap5 menu.</td></tr>
+  <tr><td>It is hard to press fast enough</td><td>Settings → increase the time between presses.</td></tr>
+  <tr><td>Pictures are missing in a full page capture</td><td>Settings → increase "wait per scroll".</td></tr>
+  <tr><td>Other apps cannot be captured</td><td>Allow Screen Recording for Chrome (see section 1).</td></tr>
+  <tr><td>It works only inside Chrome</td><td>Correct. This is a Chrome extension. A Mac app would be needed for a system-wide key.</td></tr>
+</table>
+
+<h2>9. Update, remove and privacy</h2>
+<ul>
+  <li><b>Update:</b> replace the files in the same folder, then click the reload arrow on Snap5 in <code>chrome://extensions</code>.</li>
+  <li><b>Remove:</b> click <b>Remove</b> on the same page. This also deletes the history.</li>
+  <li><b>Privacy:</b> Snap5 has no account, no analytics and no server. Screenshots are not uploaded anywhere. History is stored inside Chrome on your own computer. Chrome asks for access to all websites because Snap5 must be able to capture whichever page you are on.</li>
+  <li><b>Not included:</b> screen video recording and text recognition (OCR).</li>
+</ul>
+</body>
+</html>
